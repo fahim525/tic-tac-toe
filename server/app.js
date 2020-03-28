@@ -29,6 +29,13 @@ Socketio.on("connection", socket => {
                 break;
         }
     });
+
+
+    socket.on("setResults", data => {
+        Socketio.emit("getResults", data);
+    });
+
+
 });
 
 Http.listen(3000, () => {

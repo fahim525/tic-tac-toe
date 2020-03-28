@@ -1,32 +1,44 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home Page</router-link> |
-      <router-link to="/game/1">Game Page tes sdf</router-link>
-    </div>
-    <router-view/>
+  <div id="tic-tac-vue">
+    <transition name="fade" mode="out-in" :duration=120>
+      <div class="page-wrapper" v-if="hasPlayers">
+        <Navbar />
+        <transition name="fade" mode="out-in" :duration=120>
+          <router-view />
+        </transition>
+      </div>
+      <Players v-else />
+    </transition>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { 
+  mapState, 
+  mapGetters 
+} from 'vuex';
 
-#nav {
-  padding: 30px;
-}
+import Navbar from './components/atoms/Navbar';
+import Players from './components/molecules/Players';
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+export default {
+  name: 'TicTacVue',
+  components: {
+    Navbar,
+    Players,
+  },
+  
+  computed: {
+    ...mapState([
+      'gameHistory'
+    ]),
+    ...mapGetters([
+      'hasPlayers'
+    ])
+  }
+};
+</script>
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="scss">
+@import 'src/scss/app.scss';
 </style>

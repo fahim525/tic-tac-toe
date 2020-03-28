@@ -19,7 +19,8 @@
               <button
                 class="btn btn--primary"
                 v-if="winner || !hasEmptyCells"
-                @click="$store.dispatch('newGame')">
+                @click="$store.dispatch('newGame')"
+              >
                 <span>Play again</span>
               </button>
             </transition>
@@ -31,39 +32,27 @@
 </template>
 
 <script>
-import { 
-  mapState,
-  mapGetters,
-} from 'vuex';
 
-import Title from '../components/atoms/Title';
-import Footer from '../components/atoms/Footer';
-import Cells from '../components/molecules/Cells';
+import { mapState, mapGetters } from "vuex";
+
+import Title from "../components/atoms/Title";
+import Footer from "../components/atoms/Footer";
+import Cells from "../components/molecules/Cells";
 
 export default {
-  name: 'Game',
+  name: "Game",
   components: {
     Cells,
     Footer,
     Title
   },
-
   computed: {
-    ...mapState([
-      'player',
-      'winner',
-      'positions',
-    ]),
+    ...mapState(["player", "winner", "positions"]),
 
-    ...mapGetters([
-      'getPlayerName',
-      'getWinnerName',
-      'hasEmptyCells',
-    ]),
+    ...mapGetters(["getPlayerName", "getWinnerName", "hasEmptyCells"])
   },
-  
   beforeCreate() {
-    document.title = 'Game';
-  },
+    document.title = "Game";
+  }
 };
 </script>

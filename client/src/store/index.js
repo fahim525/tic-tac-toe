@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import io from "socket.io-client";
 Vue.use(Vuex);
 
 const emptyPositions = () => [null, null, null, null, null, null, null, null, null];
@@ -12,6 +12,8 @@ export default new Vuex.Store({
     players: null,
     gameHistory: [],
     positions: emptyPositions(),
+    socket: io("http://localhost:3000"),
+    number: 0
   },
   getters: {
     hasPlayers: state => state.players,
@@ -23,6 +25,12 @@ export default new Vuex.Store({
     },
     hasGoldenWins: state => {
       return state.gameHistory.filter(game => game.isGoldenWin).length > 0;
+    },
+    getResults: state => {
+      state.socket.on("getResults", data => {
+        state.number = data;
+        console.log(data, 'xx');
+      });
     }
   },
   mutations: {
@@ -68,7 +76,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    addMarker({commit}, payload){
+    addMarker({commit, state}, payload){
+      state.socket.emit("setResults", 1);
       commit('pushMarker', {...payload});
       commit('changePlayer');
     },
