@@ -1,0 +1,24 @@
+@import 'functions';
+@import 'variables';
+@import 'mixins/borders';
+@import 'mixins/buttons';
+@import 'animations';
+@import 'buttons';
+@import 'typography';
+@import 'grids';
+@import 'form';
+
+@import 'atoms/cell';
+@import 'atoms/navbar';
+@import 'atoms/games';
+@import 'atoms/footer';
+
+@import 'components/cells';
+@import 'components/replay';
+
+body {
+  margin: 0;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

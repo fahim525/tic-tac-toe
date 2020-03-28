@@ -1,0 +1,32 @@
+.form {
+  &__input {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    @include light-border();
+
+    &::placeholder {
+      color: #D0D0D0;
+    }
+  }
+
+  &__label {
+    margin-bottom: 2px;
+    display: inline-block
+  }
+
+  &.players {
+    padding: 15px;
+    @include light-border();
+
+    .player {
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

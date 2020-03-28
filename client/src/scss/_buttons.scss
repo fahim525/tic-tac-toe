@@ -1,0 +1,39 @@
+.btn {
+  font-size: 1rem;
+  padding: 6px 10px;
+  border-radius: 2px;
+  color: $color-white;
+  outline: none;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+
+  &[disabled="disabled"] {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  &--small {
+    padding: 3px 6px;
+  }
+
+  &--primary {
+    @include border-background($primary-color)
+  }
+
+  &--secondary {
+    @include border-background($secondary-color)
+  }
+
+  &--golden {
+    color: $color-dark;
+    @include border-background($golden-color);
+
+    &:hover {
+      &::after {
+        content: '';
+        color: red;
+      }
+    }
+  }
+}
