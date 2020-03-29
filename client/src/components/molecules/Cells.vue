@@ -10,13 +10,17 @@
 
 <script>
 import Cell from '../atoms/Cell';
-
+import { mapState } from 'vuex';
 export default {
   name: 'Cells',
   components: {
     Cell
   },
-  
+  computed: {
+    ...mapState([
+      'number'
+    ])
+  },
   props: {
     positions: {
       type: Array,

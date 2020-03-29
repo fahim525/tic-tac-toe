@@ -13,12 +13,19 @@ export default new Vuex.Store({
     gameHistory: [],
     positions: emptyPositions(),
     socket: io("http://localhost:3000"),
-    number: 0
+    number: 0,
+    playerName: ''
   },
   getters: {
     hasPlayers: state => state.players,
     getMarker: state => index => state.positions[index],
-    getPlayerName: state => state.players ? state.players[state.player] : '',
+    getPlayerName: state => {
+      if (state.players) {
+        state.socket.on("playerNameBack", name => state.playerName = name)
+        
+      }
+      return ''
+    },
     getWinnerName: state => state.winner ? state.players[state.winner] : '',
     hasEmptyCells: state => {
       return state.positions.filter(position => !!position).length < 9;
@@ -27,18 +34,28 @@ export default new Vuex.Store({
       return state.gameHistory.filter(game => game.isGoldenWin).length > 0;
     },
     getResults: state => {
-      state.socket.on("getResults", data => {
+      state.socket.on("scores", data => {
         state.number = data;
         console.log(data, 'xx');
       });
+
+      state.socket.on("playersback", data => {
+        state.players = data;
+      })
+
     }
   },
   mutations: {
-    setPlayers(state, payload) {
-      state.players = payload;
+    setPlayers(state) {
+      // state.players = payload;
+      state.socket.on("playersback", data => {
+        //state.players = data;
+        console.log(data, 'Player');
+      })
     },
     changePlayer(state) {
       state.player = state.player === 'X' ? 'O' : 'X';
+      state.socket.emit("playerName", state.player)
     },
     pushMarker(state, payload) {
       state.positions = state.positions.map((position, i) => {
@@ -76,12 +93,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    addMarker({commit, state}, payload){
-      state.socket.emit("setResults", 1);
-      commit('pushMarker', {...payload});
+    addMarker({ commit, state }, payload) {
+      state.socket.emit("results", 1);
+      //console.log('click');
+      commit('pushMarker', { ...payload });
       commit('changePlayer');
     },
-    newGame({commit}) {
+    newGame({ commit }) {
       commit('flushPositions')
       commit('flushWinner')
     }

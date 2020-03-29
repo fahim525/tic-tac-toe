@@ -9,7 +9,7 @@
             <span v-if="winner">
               <strong>{{ getWinnerName }}</strong> wins!
             </span>
-            <span v-else-if="!winner && hasEmptyCells">{{ getPlayerName }} plays!</span>
+            <span v-else-if="!winner && hasEmptyCells">{{ playerName }} plays!</span>
             <span v-else>Draw!</span>
           </h3>
         </div>
@@ -47,9 +47,9 @@ export default {
     Title
   },
   computed: {
-    ...mapState(["player", "winner", "positions"]),
+    ...mapState(["player", "playerName", "winner", "positions"]),
 
-    ...mapGetters(["getPlayerName", "getWinnerName", "hasEmptyCells"])
+    ...mapGetters(["getWinnerName", "hasEmptyCells"])
   },
   beforeCreate() {
     document.title = "Game";

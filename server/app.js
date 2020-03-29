@@ -7,6 +7,11 @@ var position = {
     y: 200
 };
 
+var players = {
+    X: 'tt',
+    O: 'pp'
+}
+
 Socketio.on("connection", socket => {
     socket.emit("position", position);
     socket.on("move", data => {
@@ -31,10 +36,21 @@ Socketio.on("connection", socket => {
     });
 
 
-    socket.on("setResults", data => {
-        Socketio.emit("getResults", data);
+
+    socket.on("results", data => {
+        Socketio.emit("scores", data);
     });
 
+    
+    socket.on("players", data => {
+        players = data;
+        Socketio.emit("playersback", data);
+    });
+     
+    socket.on("playerName", index => {
+        let name = players[index];
+        Socketio.emit('playerNameBack', name)
+    })
 
 });
 

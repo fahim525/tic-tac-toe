@@ -15,11 +15,6 @@ const routes = [
     path: '/history',
     name: 'history',
     component: GameHistory,
-  },
-  {
-    path: '/game/:id',
-    name: 'Game',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Game2.vue')
   }
 ]
 
