@@ -18,7 +18,7 @@ Application requirements:
   - Winning possibility have to display to both players and it will be real-time also.
 
 
-# What I am done.
+# What I have done.
   - Creating a node js server
   - Installing socket.io
   - Creating a vuejs app
